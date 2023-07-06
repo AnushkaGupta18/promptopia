@@ -8,20 +8,23 @@ import Profile from '@components/Profile';
 
 
 const MyProfile = () => {
+    const router = useRouter();
     const {data : session} = useSession();
 
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
         const fetchPosts = async () => {
-          const response = await fetch('/api/users/${session?.user.id}/posts');
+          const response = await fetch(`/api/users/${session?.user.id}/posts`);
           const data = await response.json();
     
           setPosts(data);
         }
     
-        if(session?.user.id) fetchPosts();
-    }, [])
+        if(session?.user.id) {
+            fetchPosts();
+        }
+    },[])
 
     const handleEdit = () => {
          
